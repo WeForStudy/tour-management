@@ -34,10 +34,6 @@ export default {
     ])
   },
 
-  created() {
-    this.$router.push({name: 'dashboard'})
-  },
-
   computed: {
      ...mapState([
       'slide',
@@ -74,6 +70,7 @@ export default {
   background-color: bgcolor
   .router--wrapper {
     background-color #fff
+    padding 20px
   }
 }
 .slide {

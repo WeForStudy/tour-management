@@ -1,25 +1,34 @@
 <template>
-  <div class="login--wrapper both--100 flex--bcenter">
-      <el-form :model="models" status-icon :rules="rules" ref="form" label-width="100px" class="login--form">
-         <el-form-item prop="account">
+  <div class="login--wrapper both--100">
+    <div class="box auto--margin">
+      <div class="login--hint">
+        <h2 class="login--title">导游中心管理系统</h2>
+        <div class="login--tip">账号密码登陆</div>
+      </div>
+      <el-form :model="models" status-icon :rules="rules" ref="form" class="login--form">
+         <el-form-item prop="account" class="width--100">
           <el-input  v-model="models.account" auto-complete="off" placeholder="账号">
             <i slot="prefix" class="el-input__icon el-icon-info"></i>
           </el-input>
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item prop="password" class="width--100"> 
           <el-input type="password" v-model="models.password" auto-complete="off" placeholder="密码">
             <i slot="prefix" class="el-input__icon el-icon-edit"></i>
           </el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('form')" class="both--100">登陆</el-button>
+        <el-form-item  class="width--100">
+          <el-button type="primary" @click="submitForm('form')" class="both--100">登录</el-button>
         </el-form-item>
       </el-form>
+    </div>
+     
   </div>
 </template>
 
 <script>
 import { onLogin } from 'services'
+import { set } from 'storage'
+import { ADMIN_KEY } from 'storage/keys'
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -39,11 +48,11 @@ export default {
         rules: {
 
           account: [
-            { trigger: 'blur', required: true, }
+            { trigger: 'blur', required: true, message: '账号不能为空' }
           ],
 
           password: [
-            { trigger: 'blur', required: true, }
+            { trigger: 'blur', required: true, message: '密码不能为空' }
           ],
 
         }
@@ -57,13 +66,14 @@ export default {
               this.models
             ).then(res => {
               this.$message({
-                message: '登陆成功',
+                message: '登录成功',
                 type: 'success'
               })
+              set(ADMIN_KEY, res, window.sessionStorage)
               this.login(res)
-              this.$router.push({name: 'home'})
+              this.$router.push({name: 'dashboard'})
             }).catch(err => {
-               this.$message.error(err.message || err || '登陆失败')
+               this.$message.error(err.message || err || '登录失败')
             })
           } else {
             console.log('error submit!!');
@@ -78,8 +88,27 @@ export default {
   }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
+.login--wrapper {
+  
+  .box {
+    width: 400px
+    margin-top  170px
+  }
+  .login--hint {
+    .login--title {
+      text-align center
+      font-size 40px
+      margin-bottom 20px
+    }
+    .login--tip {
+      text-align center
+      font-size 24px
+      margin-bottom 10px
+    }
+  }
+}
 .login--form {
-
+  flex-direction: column
 }
 </style>

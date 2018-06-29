@@ -15,7 +15,7 @@ export default(config => {
   'onLogin': '/api/admin/login',
   'getAllAdmins': '/api/admin/list',
   'deleteAdminById': '/api/admin/del',
-
+  'addAdmin': '/api/admin/add',
 
   // user block
   'getAllUsers': '/api/user/list',

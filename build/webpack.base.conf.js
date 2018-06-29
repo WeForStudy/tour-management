@@ -44,7 +44,7 @@ module.exports = {
       'assets': resolve('src/assets'),
       'common': resolve('src/common'),
       'tool': resolve('src/tool'),
-      
+      'enum': resolve('src/enum'),
     }
   },
   module: {

@@ -10,3 +10,7 @@ export const getAllAdmins = (params = {}) => {
 export const deleteAdminById = (params = {}) => {
   return http.post(apis.deleteAdminById, params)
 }
+
+export const addAdmin = (params = {}) => {
+  return http.post(apis.addAdmin, params)
+}

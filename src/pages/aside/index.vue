@@ -24,12 +24,28 @@ import { mapActions, mapState } from 'vuex'
     data() {
       return {
         sliderList: [
-
-          { 
+           { 
             name: 'dashboard',
             text: '首页',
             path: 'dashboard',
             icon: 'menu',
+          },
+          {
+            name: 'admin',
+            text: '管理员模块',
+            icon: 'edit',            
+            children: [
+              { 
+                name: 'alist',
+                text: '管理员列表', 
+                path: 'alist', 
+              },
+              { 
+                name: 'adda',
+                text: '添加管理员', 
+                path: 'adda', 
+              },
+            ],
           },
           {
             name: 'guide',
@@ -61,7 +77,7 @@ import { mapActions, mapState } from 'vuex'
     },
     computed: {
       activeRoute() {
-        return this.$route.path.slice(1)
+        return this.$route.name
       },
       ...mapState([
         'slide'

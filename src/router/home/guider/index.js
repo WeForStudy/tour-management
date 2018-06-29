@@ -1,4 +1,4 @@
-import List from 'pages/guide/list'
+import List from 'pages/guider/list'
 
 export default [
   {
