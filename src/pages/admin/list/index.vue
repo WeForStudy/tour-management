@@ -20,7 +20,7 @@
             <span>{{ props.row.phone }}</span>
           </el-form-item>
           <el-form-item label="密码：">
-            <span>{{ props.row.shopId | filterPassword}}</span>
+            <span>{{ props.row.password | filterPassword}}</span>
           </el-form-item>
           <el-form-item label="创建时间：">
             <span>{{ props.row.createTime }}</span>
@@ -29,7 +29,7 @@
             <span>{{ props.row.creator }}</span>
           </el-form-item>
           <el-form-item label="类型：">
-            <span>{{ props.row.type | filterType }}</span>
+            <span>{{ props.row.type | filterAdminTypes }}</span>
           </el-form-item>
         </el-form>
       </template>
@@ -53,7 +53,7 @@
       width="230">
       <template slot-scope="scope">
         <div class="flex">
-          <el-button @click="handleEdit(scope.row, 'detail')" type="text" size="small" class="text--success">查看</el-button>
+          <!-- <el-button @click="handleEdit(scope.row, 'detail')" type="text" size="small" class="text--success">查看</el-button> -->
           <el-button type="text" size="small" @click="handleEdit(scope.row, 'edit')" class="text--primary">编辑</el-button>
           <el-button type="text" size="small" @click="handleDelete(scope.row)" class="text--danger">删除</el-button>
         </div>
@@ -65,8 +65,7 @@
 
 <script>
 import { getAllAdmins, deleteAdminById } from 'services'
-import { success, info } from 'tool'
-import { AdminTypes } from 'enum'
+import { filterAdminTypes, filterPassword } from 'tool'
 export default {
   name: 'adminList',
   data() {
@@ -111,19 +110,8 @@ export default {
     }
   },
   filters: {
-    filterPassword(val) {
-      return '****'
-    },
-    filterType(val) {
-      const arr = Object.keys(AdminTypes)
-      let key = ''
-      arr.some(item => {
-        if (AdminTypes[item].value === val) {
-          key = AdminTypes[item].key
-        }
-      })
-      return key
-    }
+    filterPassword,
+    filterAdminTypes,
   }
 }
 </script>
