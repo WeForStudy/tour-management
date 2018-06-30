@@ -11,7 +11,7 @@
             <!-- <div>{{login.admin.name}}</div> -->
           </el-header>
           <el-main class="main flex">
-            <div class="router--wrapper flex--1">
+            <div class="router--wrapper flex--1 box--content">
               <router-view></router-view>
             </div>
           </el-main>
@@ -24,7 +24,6 @@ import Aside from 'pages/aside'
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'Home',
-
   components: {
     Aside,
   },
@@ -67,10 +66,12 @@ export default {
 <style lang="stylus" scoped>
 @import '../../common/colors.styl'
 .main {
+  padding: 10px
   background-color: bgcolor
   .router--wrapper {
+    padding 10px
+    overflow-y auto
     background-color #fff
-    padding 20px
   }
 }
 .slide {

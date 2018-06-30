@@ -81,12 +81,13 @@ export default {
       getAllAdmins().then(res => {
         this.admins = res
       }).catch(err => {
-        console.log(err)
-        // this.$message
+        this.$message.error(err.message || err || '网络异常')
       })
     },
     handleEdit(row, type) {
-      console.log(type)
+      if (type === 'edit') {
+        this.$router.push({name: 'updatea', query: { id: row.id }})
+      }
     },
     handleDelete(row) {
       const ok = () => {
@@ -99,7 +100,7 @@ export default {
         }).then(res => {
           this.refreshAdmins()
         }).catch(err => {
-          console.log(err)
+          this.$message.error(err.message || err || '删除失败')
         })
       }
       this.$confirm('确定要删除吗？')

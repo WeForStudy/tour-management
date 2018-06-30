@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-active="activeRoute" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="slide.isCollapse" :router="true">
+  <el-menu :default-active="activeRoute" class="el-menu-vertical-demo"  :collapse="slide.isCollapse" :router="true">
     <template v-for="item in sliderList">
       <el-menu-item v-if="!item.children" :key="item.name" :index="item.name" >
          <i :class="'el-icon-'+item.icon"></i>
@@ -18,7 +18,7 @@
   </el-menu>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
   export default {
     data() {
@@ -45,6 +45,11 @@ import { mapActions, mapState } from 'vuex'
                 text: '添加管理员', 
                 path: 'adda', 
               },
+              //  { 
+              //   name: 'updatea',
+              //   text: '修改管理员', 
+              //   path: 'updatea', 
+              // },
             ],
           },
           {
@@ -83,17 +88,6 @@ import { mapActions, mapState } from 'vuex'
         'slide'
       ])
     },
-    methods: {
-      handleOpen(key, keyPath) {
-        // console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        // console.log(key, keyPath);
-      },
-      // routerClick(path) {
-      //   this.$router.push({ path })
-      // }
-    }
   }
 </script>
 <style lang="stylus" scoped>

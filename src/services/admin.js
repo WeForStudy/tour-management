@@ -14,3 +14,10 @@ export const deleteAdminById = (params = {}) => {
 export const addAdmin = (params = {}) => {
   return http.post(apis.addAdmin, params)
 }
+
+export const singleAdmin = (params = {}) => {
+  return http.post(apis.singleAdmin, params)
+}
+export const updateAdmin = (params = {}) => {
+  return http.post(apis.updateAdmin, params)
+}

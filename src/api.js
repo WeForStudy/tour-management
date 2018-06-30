@@ -16,6 +16,8 @@ export default(config => {
   'getAllAdmins': '/api/admin/list',
   'deleteAdminById': '/api/admin/del',
   'addAdmin': '/api/admin/add',
+  'singleAdmin': '/api/admin/single',
+  'updateAdmin': '/api/admin/update',
 
   // user block
   'getAllUsers': '/api/user/list',

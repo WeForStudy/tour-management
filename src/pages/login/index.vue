@@ -76,7 +76,7 @@ export default {
                this.$message.error(err.message || err || '登录失败')
             })
           } else {
-            console.log('error submit!!');
+            this.$message.error('提交错误')
             return false;
           }
         });
