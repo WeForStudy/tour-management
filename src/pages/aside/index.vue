@@ -1,6 +1,6 @@
 <template>
   <el-menu :default-active="activeRoute" class="el-menu-vertical-demo"  :collapse="slide.isCollapse" :router="true">
-    <template v-for="item in sliderList">
+    <template v-for="item in list">
       <el-menu-item v-if="!item.children" :key="item.name" :index="item.name" >
          <i :class="'el-icon-'+item.icon"></i>
          <span slot="title">{{item.text}}</span>
@@ -19,7 +19,9 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-
+import { get } from 'storage'
+import { ADMIN_KEY } from 'storage/keys'
+import { AdminTypes } from 'enum'
   export default {
     data() {
       return {
@@ -96,7 +98,16 @@ import { mapState } from 'vuex'
       },
       ...mapState([
         'slide'
-      ])
+      ]),
+      list() {
+        const admin = get(ADMIN_KEY, window.sessionStorage)
+        const { type } = admin
+        console.log(type)
+        if (type === AdminTypes.NORMAL.value) 
+          return this.sliderList.filter((item, index) => item.name !== 'admin')
+        else 
+          return this.sliderList
+      }
     },
   }
 </script>
