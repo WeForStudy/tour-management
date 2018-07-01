@@ -3,11 +3,6 @@
      <div class="box auto--margin">
        <h2 class="form--title">{{title}}</h2>
        <el-form :model="models" status-icon :rules="rules" ref="form" class="add--form">
-        <el-form-item prop="account" class="width--100">
-          <el-input  v-model="models.account" auto-complete="off" placeholder="账号">
-            <i slot="prefix" class="el-input__icon el-icon-info"></i>
-            </el-input>
-        </el-form-item>
         <el-form-item prop="name" class="width--100"> 
           <el-input v-model="models.name" auto-complete="off" placeholder="姓名">
             <i slot="prefix" class="el-input__icon el-icon-news"></i>
@@ -23,16 +18,6 @@
             <i slot="prefix" class="el-input__icon el-icon-edit"></i>
           </el-input>
         </el-form-item>
-        <el-form-item class="width--100" prop="type">
-          <el-select v-model="models.type" placeholder="请选择管理员类别" class="width--100">
-            <el-option
-              v-for="item in types"
-              :key="item.value"
-              :label="item.key"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
         <el-form-item  class="width--100 flex--space--around">
           <el-button type="primary" @click="submitForm('form')">确定</el-button>
           <el-button type="normal" @click="cancel()">取消</el-button>
@@ -44,35 +29,18 @@
 </template>
 
 <script>
-import { addAdmin } from 'services'
-import { get } from 'storage'
-import { ADMIN_KEY } from 'storage/keys'
-import { AdminTypes } from 'enum'
+import { addUser } from 'services'
 export default {
     created() {
-      this.types = Object.keys(AdminTypes).map(item => AdminTypes[item])
     },
     data() {
-      // const validateAccount = (rule, value, callback) => {
-      //   if (value === '') {
-      //     callback(new Error('请输入账号'));
-      //   } else {
-      //     callback();
-      //   }
-      // };
       return {
         models: {
-          account: '',
           name: '',
           phone: '',
           password: '',
-          type: AdminTypes.NORMAL.value,
         },
-        types: [],
         rules: {
-          account: [
-            { trigger: 'blur', required: true, message: '账号不能为空' }
-          ],
           phone: [
             { trigger: 'blur', required: true, message: '手机号不能为空' }
           ],
@@ -90,12 +58,10 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            const admin = get(ADMIN_KEY, window.sessionStorage)
-            const { name } = admin
-            addAdmin({
+            addUser({
               ...this.models,
-              creator: name,
             }).then(res => {
+              console.log(res)
               this.$message({
                 message: '添加成功',
                 type: 'success'
@@ -119,7 +85,7 @@ export default {
     },
     computed: {
       title() {
-        return '添加管理员'
+        return '添加用户'
       }
     }
   }

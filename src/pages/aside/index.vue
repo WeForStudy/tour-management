@@ -74,6 +74,11 @@ import { mapState } from 'vuex'
                 text: '用户列表', 
                 path: 'ulist', 
               },
+               { 
+                name: 'addu',
+                text: '添加用户', 
+                path: 'addu', 
+              },
             ],
           },
          

@@ -65,7 +65,7 @@
 
 <script>
 import { getAllAdmins, deleteAdminById } from 'services'
-import { filterAdminTypes, filterPassword } from 'tool'
+import { filterAdminTypes, filterPassword } from 'tool/filters'
 export default {
   name: 'adminList',
   data() {

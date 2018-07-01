@@ -21,5 +21,9 @@ export default(config => {
 
   // user block
   'getAllUsers': '/api/user/list',
-  
+  'deleteUserById': '/api/user/del',
+  'addUser': '/api/user/add',
+  'singleUser': '/api/user/single',
+  'updateUser': '/api/user/update',
+
 })

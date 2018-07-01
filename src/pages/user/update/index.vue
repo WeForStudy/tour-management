@@ -1,29 +1,39 @@
 <template>
   <div class="add--wrapper both--100 flex--bcenter">
-     <div class="box auto--margin">
+     <div class="box">
        <h2 class="form--title">{{title}}</h2>
-       <el-form :model="models" status-icon :rules="rules" ref="form" class="add--form">
-        <el-form-item prop="account" class="width--100">
+       <el-form :model="models" status-icon :rules="rules" ref="form" class="add--form" label-width="80px">
+        <el-form-item prop="account" class="width--100" label="编号">
+          <el-input  v-model="models.id" auto-complete="off" placeholder="编号" :disabled="true">
+            <i slot="prefix" class="el-input__icon el-icon-menu"></i>
+            </el-input>
+        </el-form-item>
+        <el-form-item prop="account" class="width--100" label="账号">
           <el-input  v-model="models.account" auto-complete="off" placeholder="账号">
             <i slot="prefix" class="el-input__icon el-icon-info"></i>
             </el-input>
         </el-form-item>
-        <el-form-item prop="name" class="width--100"> 
+        <el-form-item prop="name" class="width--100" label="姓名"> 
           <el-input v-model="models.name" auto-complete="off" placeholder="姓名">
             <i slot="prefix" class="el-input__icon el-icon-news"></i>
           </el-input>
         </el-form-item>
-        <el-form-item prop="phone" class="width--100"> 
+        <el-form-item prop="phone" class="width--100" label="手机号"> 
           <el-input v-model="models.phone" auto-complete="off" placeholder="手机号">
             <i slot="prefix" class="el-input__icon el-icon-mobile-phone"></i>
           </el-input>
         </el-form-item>
-        <el-form-item prop="password" class="width--100"> 
-          <el-input type="password" v-model="models.password" auto-complete="off" placeholder="密码">
+        <el-form-item prop="password" class="width--100" label="密码"> 
+          <el-input type="password" v-model="models.password" auto-complete="off" placeholder="密码" :disabled="true">
             <i slot="prefix" class="el-input__icon el-icon-edit"></i>
           </el-input>
         </el-form-item>
-        <el-form-item class="width--100" prop="type">
+        <el-form-item prop="paswword" class="width--100" label="创建时间"> 
+          <el-input v-model="models.createTime" auto-complete="off" placeholder="密码" :disabled="true">
+            <i slot="prefix" class="el-input__icon el-icon-date"></i>
+          </el-input>
+        </el-form-item>
+        <el-form-item class="width--100" prop="type"  label="类别">
           <el-select v-model="models.type" placeholder="请选择管理员类别" class="width--100">
             <el-option
               v-for="item in types"
@@ -33,10 +43,10 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item  class="width--100 flex--space--around">
+        <el-form-item  class="width--100 flex flex--space--around">
           <el-button type="primary" @click="submitForm('form')">确定</el-button>
           <el-button type="normal" @click="cancel()">取消</el-button>
-          <el-button type="danger" @click="reset('form')">清空</el-button>
+          <el-button type="danger" @click="reset()">重置密码</el-button>
         </el-form-item>
       </el-form>
      </div>
@@ -44,24 +54,25 @@
 </template>
 
 <script>
-import { addAdmin } from 'services'
-import { get } from 'storage'
-import { ADMIN_KEY } from 'storage/keys'
+import { updateAdmin, singleAdmin } from 'services'
 import { AdminTypes } from 'enum'
 export default {
     created() {
+      const { id } = this.$route.query
+      this.refreshModels(id)
       this.types = Object.keys(AdminTypes).map(item => AdminTypes[item])
     },
     data() {
-      // const validateAccount = (rule, value, callback) => {
-      //   if (value === '') {
-      //     callback(new Error('请输入账号'));
-      //   } else {
-      //     callback();
-      //   }
-      // };
+      const validateAccount = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入账号'));
+        } else {
+          callback();
+        }
+      };
       return {
         models: {
+          id: '',
           account: '',
           name: '',
           phone: '',
@@ -87,21 +98,28 @@ export default {
       };
     },
     methods: {
+      refreshModels(id) {
+        singleAdmin({id}).then(res => {
+          this.models = res
+        }).catch(err => {
+          this.$message.error(err.message || err || '网络异常')
+        })
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            const admin = get(ADMIN_KEY, window.sessionStorage)
-            const { name } = admin
-            addAdmin({
+            updateAdmin({
               ...this.models,
-              creator: name,
             }).then(res => {
               this.$message({
-                message: '添加成功',
+                message: '修改成功',
                 type: 'success'
               })
-              this.reset('form')
-            }).catch(err => {
+              this.$refs[formName].clearValidate()
+              const { id } = this.$route.query
+              this.refreshModels(id)
+            }).catch(
+              err => {
               this.$message.error(err.message || err || '添加失败')
             })
           } else {
@@ -110,8 +128,27 @@ export default {
           }
         });
       },
-      reset(val) {
-        this.$refs[val].resetFields();
+      reset() {
+        const params = {
+          ...this.models,
+          password: '123456'
+        }
+
+        const ok = () => {
+          updateAdmin(params).then(res => {
+            this.$message({
+              message: '重置成功',
+              type: 'success'
+            })
+            const { id } = this.$route.query
+            this.refreshModels(id)
+          }).catch(err => {
+            this.$message.error(err.message || err || '添加失败')
+          })
+        }
+        this.$confirm('确定要重置吗？').then(_ => {
+          ok();
+        }).catch(_ => this.$message('取消操作'));
       },
       cancel() {
         this.$router.go(-1)
@@ -119,7 +156,7 @@ export default {
     },
     computed: {
       title() {
-        return '添加管理员'
+        return '修改管理员'
       }
     }
   }
