@@ -62,6 +62,11 @@ import { mapState } from 'vuex'
                 text: '导游列表', 
                 path: 'glist', 
               },
+               { 
+                name: 'addg',
+                text: '添加导游', 
+                path: 'addg', 
+              },
             ],
           },
           {

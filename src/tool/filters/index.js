@@ -24,3 +24,7 @@ export const filterMoney = (val, char = '¥') => {
   const value =  val === null ? 0 : val
   return value + `.00${char}`
 }
+export const filterCarNo = (val) => {
+  if (val) return val
+  else return '未实名'
+}

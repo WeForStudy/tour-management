@@ -27,20 +27,20 @@
           <el-form-item label="手机：">
             <span>{{ props.row.phone }}</span>
           </el-form-item>
-          <el-form-item label="账号：">
-            <span>{{ props.row.address }}</span>
-          </el-form-item>
           <el-form-item label="密码：">
             <span>{{ props.row.password | filterPassword}}</span>
           </el-form-item>
           <el-form-item label="创建时间：">
             <span>{{ props.row.createTime }}</span>
           </el-form-item>
-          <el-form-item label="创建人：">
-            <span>{{ props.row.creator }}</span>
-          </el-form-item>
-          <el-form-item label="余额">
+          <el-form-item label="余额：">
             <span>{{ props.row.balance | filterMoney }}</span>
+          </el-form-item>
+          <el-form-item label="地址：">
+            <span>{{ props.row.addrsss | filterCarNo }}</span>
+          </el-form-item>
+           <el-form-item label="身份证号：">
+            <span>{{ props.row.carNo | filterCarNo }}</span>
           </el-form-item>
         </el-form>
       </template>
@@ -55,10 +55,10 @@
         label="姓名"
         width="180">
       </el-table-column>
-      <!-- <el-table-column
-        prop="creator"
-        label="创建人">
-      </el-table-column> -->
+      <el-table-column
+        prop="createTime"
+        label="创建时间">
+      </el-table-column>
       <el-table-column
       label="操作"
       width="230">
@@ -76,7 +76,7 @@
 
 <script>
 import { getAllUsers, deleteUserById } from 'services'
-import { filterMoney, filterPassword } from 'tool/filters'
+import { filterMoney, filterPassword, filterCarNo } from 'tool/filters'
 export default {
   name: 'adminList',
   data() {
@@ -124,6 +124,7 @@ export default {
   filters: {
     filterPassword,
     filterMoney,
+    filterCarNo,
   }
 }
 </script>

@@ -26,4 +26,11 @@ export default(config => {
   'singleUser': '/api/user/single',
   'updateUser': '/api/user/update',
 
+   // guider block
+   'getAllGuiders': '/api/guider/list',
+   'deleteGuiderById': '/api/guider/del',
+   'addGuider': '/api/guider/add',
+   'singleGuider': '/api/guider/single',
+   'updateGuider': '/api/guider/update',
+
 })
