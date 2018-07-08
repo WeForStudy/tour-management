@@ -26,5 +26,6 @@ export default(config => {
   'singleUser': '/api/user/single',
   'updateUser': '/api/user/update',
 
-   
+  'getAllGuiders': '/api/guider/list',
+  'deleteGuiderById': '/api/guider/del',
 })

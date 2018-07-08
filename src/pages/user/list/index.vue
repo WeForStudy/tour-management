@@ -97,7 +97,7 @@ export default {
     },
     handleEdit(row, type) {
       if (type === 'edit') {
-        this.$router.push({name: 'updatea', query: { id: row.id }})
+        this.$router.push({name: 'updateu', query: { id: row.id }})
       }
     },
     handleDelete(row) {

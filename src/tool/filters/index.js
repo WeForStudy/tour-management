@@ -1,3 +1,4 @@
+import { AdminTypes } from 'enum'
 export const filterAdminTypes = val => {
   const arr = Object.keys(AdminTypes)
   let key = ''
