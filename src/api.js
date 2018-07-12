@@ -33,4 +33,10 @@ export default(config => {
    'singleGuider': '/api/guider/single',
    'updateGuider': '/api/guider/update',
 
+   // order block
+   'getAllOrders': '/api/order/list',
+   'deleteOrderById': '/api/order/del',
+   'addOrder': '/api/order/add',
+   'singleOrder': '/api/order/single',
+   'updateOrder': '/api/order/update',
 })

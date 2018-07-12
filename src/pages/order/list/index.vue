@@ -1,7 +1,7 @@
 <template>
   <div class="list--wrapper both--100">
      <el-table
-      :data="guiders"
+      :data="orders"
       height="100%"
       style="width: 100%">
       <!-- address
@@ -15,55 +15,49 @@
       phone
       status -->
 
-      <el-table-column type="expand">
+      <!-- <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
           <el-form-item label="编号：">
             <span>{{ props.row.id }}</span>
           </el-form-item>
-          <el-form-item label="姓名：">
-            <span>{{ props.row.name }}</span>
+          <el-form-item label="用户编号：">
+            <span>{{ props.row.userId }}</span>
           </el-form-item>
-          <el-form-item label="手机：">
-            <span>{{ props.row.phone }}</span>
+          <el-form-item label="向导编号：">
+            <span>{{ props.row.guiderId }}</span>
           </el-form-item>
-          <el-form-item label="密码：">
-            <span>{{ props.row.password | filterPassword}}</span>
+          <el-form-item label="总金额：">
+            <span>{{ props.row.totalMoney | filterMoney}}</span>
           </el-form-item>
-          <el-form-item label="创建时间：">
-            <span>{{ props.row.createTime }}</span>
-          </el-form-item>
-          <el-form-item label="余额">
-            <span>{{ props.row.balance | filterMoney }}</span>
-          </el-form-item>
-          <el-form-item label="地址">
-            <span>{{ props.row.addrsss | filterCarNo }}</span>
-          </el-form-item>
-          <el-form-item label="身份证号">
-            <span>{{ props.row.carNo | filterCarNo }}</span>
+          <el-form-item label="订单时间：">
+            <span>{{ props.row.orderTime }}</span>
           </el-form-item>
         </el-form>
       </template>
-    </el-table-column>
+    </el-table-column> -->
       <el-table-column
         prop="id"
         label="编号"
         width="180">
       </el-table-column>
       <el-table-column
-        prop="name"
-        label="姓名"
+        prop="userId"
+        label="用户编号"
         width="180">
       </el-table-column>
       <el-table-column
-        prop="createTime"
-        label="创建时间"
-      >
+        prop="guiderId"
+        label="向导编号">
       </el-table-column>
-      <!-- <el-table-column
-        prop="creator"
-        label="创建人">
-      </el-table-column> -->
+      <el-table-column
+        prop="totalMoney"
+        label="总金额">
+      </el-table-column>
+      <el-table-column
+        prop="orderTime"
+        label="订单时间">
+      </el-table-column>
       <el-table-column
       label="操作"
       width="230">
@@ -80,29 +74,29 @@
 </template>
 
 <script>
-import { getAllGuiders, deleteGuiderById } from 'services'
-import { filterMoney, filterPassword, filterCarNo } from 'tool/filters'
+import { getAllOrders, deleteOrderById } from 'services'
+import { filterMoney } from 'tool/filters'
 export default {
-  name: 'adminList',
+  name: 'OrderList',
   data() {
     return {
-      guiders: []
+      orders: []
     }
   },
   created() {
-    this.refreshGuiders()
+    this.refreshOrders()
   },
   methods: {
-    refreshGuiders() {
-      getAllGuiders().then(res => {
-        this.guiders = res
+    refreshOrders() {
+      getAllOrders().then(res => {
+        this.orders = res
       }).catch(err => {
         this.$message.error(err.message || err || '网络异常')
       })
     },
     handleEdit(row, type) {
       if (type === 'edit') {
-        this.$router.push({name: 'updatea', query: { id: row.id }})
+        this.$router.push({name: 'updateo', query: { id: row.id }})
       }
     },
     handleDelete(row) {
@@ -111,10 +105,10 @@ export default {
           message: '删除成功',
           type: 'success',
         })
-        deleteGuiderById({
+        deleteOrderById({
           id: row.id
         }).then(res => {
-          this.refreshGuiders()
+          this.refreshOrders()
         }).catch(err => {
           this.$message.error(err.message || err || '删除失败')
         })
@@ -127,10 +121,8 @@ export default {
     }
   },
   filters: {
-    filterPassword,
     filterMoney,
-    filterCarNo,
-  }
+  },
 }
 </script>
 

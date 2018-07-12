@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-active="activeRoute" class="el-menu-vertical-demo"  :collapse="slide.isCollapse" :router="true">
+  <el-menu :default-active="activeRoute" class="el-menu-vertical-demo"  :collapse="slide.isCollapse" :router="true" :show-timeout="100" :hide-timeout="100">
     <template v-for="item in list">
       <el-menu-item v-if="!item.children" :key="item.name" :index="item.name" >
          <i :class="'el-icon-'+item.icon"></i>
@@ -44,7 +44,7 @@ import { AdminTypes } from 'enum'
               },
               { 
                 name: 'adda',
-                text: '添加管理员', 
+                text: '新添管理员', 
                 path: 'adda', 
               },
               //  { 
@@ -66,25 +66,25 @@ import { AdminTypes } from 'enum'
               },
                { 
                 name: 'addg',
-                text: '添加导游', 
+                text: '新添导游', 
                 path: 'addg', 
               },
             ],
           },
           {
-            name: 'user',
-            text: '用户模块',
+            name: 'order',
+            text: '订单模块',
             icon: 'edit',            
             children: [
               { 
-                name: 'ulist',
-                text: '用户列表', 
-                path: 'ulist', 
+                name: 'olist',
+                text: '订单列表', 
+                path: 'olist', 
               },
                { 
-                name: 'addu',
-                text: '添加用户', 
-                path: 'addu', 
+                name: 'addo',
+                text: '新添订单', 
+                path: 'addo', 
               },
             ],
           },
@@ -102,7 +102,6 @@ import { AdminTypes } from 'enum'
       list() {
         const admin = get(ADMIN_KEY, window.sessionStorage)
         const { type } = admin
-        console.log(type)
         if (type === AdminTypes.NORMAL.value) 
           return this.sliderList.filter((item, index) => item.name !== 'admin')
         else 

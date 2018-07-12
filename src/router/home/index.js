@@ -3,6 +3,7 @@ import DashBoardRoutes from './dashboard'
 import UserRoutes from './user'
 import GuiderRoutes from './guider'
 import AdminRoutes from './admin'
+import OrderRoutes from './order'
 
 
 export default [
@@ -15,6 +16,7 @@ export default [
       ...DashBoardRoutes,
       ...GuiderRoutes,
       ...AdminRoutes,
+      ...OrderRoutes,
     ],
   },
 ]
