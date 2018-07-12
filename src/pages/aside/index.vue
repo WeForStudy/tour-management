@@ -35,7 +35,7 @@ import { AdminTypes } from 'enum'
           {
             name: 'admin',
             text: '管理员模块',
-            icon: 'edit',            
+            icon: 'news',            
             children: [
               { 
                 name: 'alist',
@@ -57,7 +57,7 @@ import { AdminTypes } from 'enum'
           {
             name: 'guide',
             text: '导游模块',
-            icon: 'edit',            
+            icon: 'service',            
             children: [
               { 
                 name: 'glist',
@@ -74,7 +74,7 @@ import { AdminTypes } from 'enum'
           {
             name: 'order',
             text: '订单模块',
-            icon: 'edit',            
+            icon: 'tickets',            
             children: [
               { 
                 name: 'olist',
