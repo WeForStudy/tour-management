@@ -11,6 +11,7 @@ export default(config => {
 	  return copy
 	}, {})
 })({
+
   // admin block
   'onLogin': '/api/admin/login',
   'getAllAdmins': '/api/admin/list',
@@ -38,5 +39,10 @@ export default(config => {
    'deleteOrderById': '/api/order/del',
    'addOrder': '/api/order/add',
    'singleOrder': '/api/order/single',
-   'updateOrder': '/api/order/update',
+   'updateOrder': '/api/order/update', 
+
+
+  // rsa block
+  'getPublicKey': '/api/rsa/getKey',
+  'RSALogin': '/api/rsa/login',
 })
