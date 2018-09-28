@@ -25,8 +25,6 @@ npm run build --report
   # git pull // 拉取線上代碼庫代碼
   # git push // 提交你的代碼至線上代碼庫
 ```
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
 
 ## 文件夹详解
 
